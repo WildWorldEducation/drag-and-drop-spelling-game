@@ -39,10 +39,13 @@ public class TargetDropPanel : MonoBehaviour, IDropHandler, IPointerEnterHandler
     IEnumerator FindChildBlock()
     {
         yield return new WaitForSeconds(0.1f);
+        int _currentLevel = LevelManager._instance.currentLevel;
+        string _currentWord = LevelManager._instance.currentWord;
 
+        //replace lettera with current correct letter
         if (gameObject.name == "Target01")
         {
-            if (gameObject.transform.GetChild(0).gameObject.name == "D")
+            if (gameObject.transform.GetChild(0).gameObject.name.ToUpper() == _currentWord[0].ToString().ToUpper())
             {
                 AppControl.answerCounter++;
             }
@@ -50,7 +53,7 @@ public class TargetDropPanel : MonoBehaviour, IDropHandler, IPointerEnterHandler
 
         else if (gameObject.name == "Target02")
         {
-            if (gameObject.transform.GetChild(0).gameObject.name == "O")
+            if (gameObject.transform.GetChild(0).gameObject.name.ToUpper() == _currentWord[1].ToString().ToUpper())
             {
                 AppControl.answerCounter++;
             }
@@ -58,7 +61,7 @@ public class TargetDropPanel : MonoBehaviour, IDropHandler, IPointerEnterHandler
 
         else if (gameObject.name == "Target03")
         {
-            if (gameObject.transform.GetChild(0).gameObject.name == "G")
+            if (gameObject.transform.GetChild(0).gameObject.name.ToUpper() == _currentWord[2].ToString().ToUpper())
             {
                 AppControl.answerCounter++;
             }
@@ -69,8 +72,6 @@ public class TargetDropPanel : MonoBehaviour, IDropHandler, IPointerEnterHandler
         {
             var appControlScript = GameObject.Find("AppControl").GetComponent<AppControl>();
             appControlScript.NextQuestion();
-
-
         }
 
         // Debug.Log(gameObject.transform.GetChild(0).gameObject.name);
