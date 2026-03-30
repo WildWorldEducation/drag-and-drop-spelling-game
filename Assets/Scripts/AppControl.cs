@@ -12,15 +12,10 @@ public class AppControl : MonoBehaviour
 
     public Transform target1, target2, target3, target4;
     public Transform DParent, OParent, GParent;
-    public Transform Parent1, Parent2, Parent3;
+    public Transform Parent1, Parent2, Parent3, Parent4;
     public Transform D, O, G;
-    public Transform Block1, Block2, Block3;
+    public Transform Block1, Block2, Block3, Block4;
 
-    public string firstLetter;
-    public string secondLetter;
-    public string thirdLetter;
-    public string fourthLetter;
-    public string fifthLetter;
 void Awake()
 {
     _instance = this;
@@ -40,27 +35,29 @@ void Awake()
 
     public void NextQuestion()
     {
-        D.SetParent(DParent);
-        O.SetParent(OParent);
-        G.SetParent(GParent);
-        /*
+        LevelManager._instance.NextLevel();
+       
         Block1.SetParent(Parent1);
         Block2.SetParent(Parent2);
-        Block3.SetParent(Parent3);*/
+        Block3.SetParent(Parent3);
 
-        questionImage.sprite = Resources.Load<Sprite>("VocabImages/DUCK");
+        StartLevel();
+      
+        if (LevelManager._instance.currentLevel == 1)
+        {
+            target1.localPosition = new Vector3(-150.25f, -120, 0);
+            target2.localPosition = new Vector3(-49.5f, -120, 0);
+            target3.localPosition = new Vector3(49.5f, -120, 0);
+            target4.localPosition = new Vector3(150.25f, -120, 0);
 
-        target1.localPosition = new Vector3(-150.25f, -120, 0);
-        target2.localPosition = new Vector3(-49.5f, -120, 0);
-        target3.localPosition = new Vector3(49.5f, -120, 0);
-        target4.localPosition = new Vector3(150.25f, -120, 0);
-        target4.GetComponent<CanvasGroup>().alpha = 1;
+            target4.GetComponent<CanvasGroup>().alpha = 1;
+        }                      
     }
     public void StartLevel()
     {
-        questionImage.sprite = LevelManager._instance.currentImage;
+        questionImage.sprite = LevelManager._instance.CurrentImage;
         int _level = LevelManager._instance.currentLevel;
-        string _word = LevelManager._instance.currentWord;
+        string _word = LevelManager._instance.CurrentWord;
 
         Block1 = GameObject.Find(_word[0].ToString().ToUpper()).transform;
         Parent1 = Block1.parent;
@@ -71,8 +68,11 @@ void Awake()
         Block3 = GameObject.Find(_word[2].ToString().ToUpper()).transform;
         Parent3 = Block3.parent;
 
-        if(_level>1)
-        { }
+        if(_level==1)
+        {
+            Block4 = GameObject.Find(_word[3].ToString().ToUpper()).transform;
+            Parent4 = Block4.parent;
+        }
         if (_level > 2)
         { }
 

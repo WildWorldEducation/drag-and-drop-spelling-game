@@ -40,7 +40,7 @@ public class TargetDropPanel : MonoBehaviour, IDropHandler, IPointerEnterHandler
     {
         yield return new WaitForSeconds(0.1f);
         int _currentLevel = LevelManager._instance.currentLevel;
-        string _currentWord = LevelManager._instance.currentWord;
+        string _currentWord = LevelManager._instance.CurrentWord;
 
         //replace lettera with current correct letter
         if (gameObject.name == "Target01")
@@ -67,13 +67,32 @@ public class TargetDropPanel : MonoBehaviour, IDropHandler, IPointerEnterHandler
             }
         }
 
-
-        if (AppControl.answerCounter == 3)
+        switch (LevelManager._instance.currentLevel)
         {
-            var appControlScript = GameObject.Find("AppControl").GetComponent<AppControl>();
-            appControlScript.NextQuestion();
+            case 0:
+                if (AppControl.answerCounter == 3)
+                {
+                    AppControl.answerCounter = 0;
+                    var appControlScript = GameObject.Find("AppControl").GetComponent<AppControl>();
+                    appControlScript.NextQuestion();
+                }
+                break;
+            case 1:
+                if (AppControl.answerCounter == 4)
+                {
+                    AppControl.answerCounter = 0;
+                    var appControlScript = GameObject.Find("AppControl").GetComponent<AppControl>();
+                    appControlScript.NextQuestion();
+                }
+                break;
+            case 2:
+                if (AppControl.answerCounter == 5)
+                {
+                    AppControl.answerCounter = 0;
+                    var appControlScript = GameObject.Find("AppControl").GetComponent<AppControl>();
+                    appControlScript.NextQuestion();
+                }
+                break;
         }
-
-        // Debug.Log(gameObject.transform.GetChild(0).gameObject.name);
     }
 }
